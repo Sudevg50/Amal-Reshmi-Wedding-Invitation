@@ -1,0 +1,245 @@
+﻿import { useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { invite } from "../config/invite";
+
+interface Props {
+  isOpen: boolean;
+  onOpen: () => void;
+}
+
+const WaxSeal = () => (
+  <svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="sg" cx="38%" cy="32%" r="68%">
+        <stop offset="0%" stopColor="#E8B84B" />
+        <stop offset="55%" stopColor="#C49028" />
+        <stop offset="100%" stopColor="#9C6B1E" />
+      </radialGradient>
+      <filter id="ss" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="6" stdDeviation="10" floodColor="#00000055" />
+      </filter>
+    </defs>
+    <circle cx="44" cy="44" r="40" fill="url(#sg)" filter="url(#ss)" />
+    <circle cx="44" cy="44" r="34" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+    <path
+      d="M44 59 C44 59 25 47 25 34 C25 26 31 21 38 24 C41 25 43 27 44 30 C45 27 47 25 50 24 C57 21 63 26 63 34 C63 47 44 59 44 59Z"
+      fill="rgba(255,255,255,0.86)"
+    />
+  </svg>
+);
+
+export default function EnvelopeIntro({ isOpen, onOpen }: Props) {
+  const handleTap = useCallback(() => {
+    if (isOpen) return;
+    try {
+      const audio = new Audio(invite.assets.music);
+      audio.loop = true;
+      audio.volume = 0.4;
+      audio.play().catch(() => {});
+      (window as any).__weddingAudio = audio;
+    } catch (_) {}
+    onOpen();
+  }, [isOpen, onOpen]);
+
+  return (
+    <AnimatePresence>
+      {!isOpen && (
+        <motion.div
+          key="envelope"
+          onClick={handleTap}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, y: -30, scale: 0.96 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            position: "fixed",
+            inset: 0,
+            width: "100vw",
+            height: "100dvh",
+            zIndex: 9999,
+            background: "linear-gradient(170deg, #5B6B3C 0%, #4A5A2E 60%, #3A4A1E 100%)",
+            cursor: "pointer",
+            userSelect: "none",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0",
+            overflow: "hidden",
+          }}
+        >
+          {/* Grain texture */}
+          <div style={{
+            position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E")`,
+            backgroundSize: "200px 200px",
+          }} />
+
+          {/* Subtle radial vignette */}
+          <div style={{
+            position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0,
+            background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(0,0,0,0.38) 100%)",
+          }} />
+
+          {/* ── CENTERED CONTENT ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              position: "relative",
+              zIndex: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0",
+            }}
+          >
+            {/* Top micro-label */}
+            <motion.p
+              initial={{ opacity: 0, letterSpacing: "0.1em" }}
+              animate={{ opacity: 1, letterSpacing: "0.32em" }}
+              transition={{ delay: 0.3, duration: 0.9 }}
+              style={{
+                fontFamily: "Raleway, sans-serif",
+                fontSize: "0.58rem",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.6)",
+                marginBottom: "1.6rem",
+              }}
+            >
+              Wedding Invitation
+            </motion.p>
+
+            {/* Envelope card */}
+            <motion.div
+              initial={{ scale: 0.88, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                position: "relative",
+                width: "min(280px, 74vw)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              {/* Envelope shape */}
+              <div style={{
+                width: "100%",
+                background: "linear-gradient(175deg, #4E5E31 0%, #3C4D22 100%)",
+                borderRadius: "10px",
+                boxShadow: "0 24px 64px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.06) inset",
+                border: "1px solid rgba(184,134,47,0.28)",
+                overflow: "visible",
+                position: "relative",
+              }}>
+                {/* Flap */}
+                <div style={{
+                  width: "100%",
+                  height: 0,
+                  borderLeft: "min(140px, 37vw) solid transparent",
+                  borderRight: "min(140px, 37vw) solid transparent",
+                  borderTop: "min(104px, 27.5vw) solid #566840",
+                  borderRadius: "10px 10px 0 0",
+                }} />
+
+                {/* Body */}
+                <div style={{
+                  padding: "1.25rem 1.5rem 1.75rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "0.45rem",
+                }}>
+                  {/* A | B */}
+                  <h1 style={{
+                    fontFamily: "Cinzel, serif",
+                    fontSize: "clamp(2rem, 10vw, 2.8rem)",
+                    fontWeight: 500,
+                    color: "rgba(255,255,255,0.92)",
+                    letterSpacing: "0.18em",
+                    lineHeight: 1,
+                  }}>
+                    A&nbsp;|&nbsp;B
+                  </h1>
+
+                  {/* Gold rule */}
+                  <div style={{
+                    width: "55%",
+                    height: "1px",
+                    background: "linear-gradient(90deg, transparent, rgba(217,164,65,0.85), transparent)",
+                    margin: "0.15rem 0",
+                  }} />
+
+                  {/* Date */}
+                  <p style={{
+                    fontFamily: "Raleway, sans-serif",
+                    fontSize: "0.58rem",
+                    fontWeight: 500,
+                    letterSpacing: "0.28em",
+                    textTransform: "uppercase",
+                    color: "rgba(255,255,255,0.72)",
+                  }}>
+                    25 October 2026
+                  </p>
+                </div>
+              </div>
+
+              {/* Wax seal — centered on flap fold */}
+              <motion.div
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ repeat: Infinity, duration: 2.6, ease: "easeInOut" }}
+                style={{
+                  position: "absolute",
+                  top: "min(52px, 13.7vw)",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  zIndex: 10,
+                  filter: "drop-shadow(0 8px 22px rgba(0,0,0,0.42))",
+                }}
+              >
+                <WaxSeal />
+              </motion.div>
+            </motion.div>
+
+            {/* Rings + tap label */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.75, duration: 0.7 }}
+              style={{
+                marginTop: "2rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "0.55rem",
+              }}
+            >
+              {/* Interlocking rings */}
+              <svg width="38" height="19" viewBox="0 0 38 19" fill="none">
+                <circle cx="12" cy="9.5" r="8" stroke="rgba(217,164,65,0.75)" strokeWidth="1.4" fill="none" />
+                <circle cx="26" cy="9.5" r="8" stroke="rgba(217,164,65,0.75)" strokeWidth="1.4" fill="none" />
+              </svg>
+
+              <motion.p
+                animate={{ opacity: [0.3, 0.9, 0.3] }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                style={{
+                  fontFamily: "Raleway, sans-serif",
+                  fontSize: "0.57rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.32em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.6)",
+                }}
+              >
+                Tap to Open
+              </motion.p>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

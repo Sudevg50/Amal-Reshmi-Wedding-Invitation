@@ -1,0 +1,137 @@
+﻿/* =========================================================
+   GLOBAL DESIGN SYSTEM — Kerala Wedding Invitation
+   ========================================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green-deep: #4A5A2E;
+  --green-mid: #5B6B3C;
+  --green-light: #6B7D4A;
+  --ivory: #FBF6EC;
+  --cream: #F4EBDD;
+  --gold: #B8862F;
+  --gold-bright: #D9A441;
+  --gold-dark: #9C6B1E;
+  --brown-dark: #4A3524;
+  --brown-mid: #7A6450;
+  --brown-light: #A89880;
+  --white: #FFFFFF;
+  --glass-bg: rgba(255,255,255,0.35);
+  --glass-border: rgba(184,134,47,0.4);
+  --font-serif: "Cinzel", Georgia, serif;
+  --font-body: "Cormorant Garamond", Georgia, serif;
+  --font-label: "Raleway", sans-serif;
+  --max-w: 430px;
+  --easing: cubic-bezier(.22,1,.36,1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--ivory);
+  color: var(--brown-dark);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+/* ── Scroll snap container ── */
+.snap-container {
+  height: 100dvh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100dvh;
+}
+
+.free-section {
+  /* no snap */
+}
+
+/* ── Centered card wrapper ── */
+.card-wrapper {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ── Gold divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+}
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.divider-star {
+  font-size: 0.7rem;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Section label pill ── */
+.pill-label {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  background: rgba(91,107,60,0.12);
+  border: 1px solid rgba(91,107,60,0.3);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+}
+
+/* ── Gold frosted card ── */
+.frosted-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+}
+
+/* ── Cinzel heading ── */
+.cinzel { font-family: var(--font-serif); }
+.cormorant { font-family: var(--font-body); }
+.raleway { font-family: var(--font-label); }
+
+/* ── Utility ── */
+.text-gold { color: var(--gold); }
+.text-brown { color: var(--brown-dark); }
+.text-muted { color: var(--brown-mid); }
+.text-center { text-align: center; }
+.tracking-wide { letter-spacing: 0.25em; }
+.tracking-wider { letter-spacing: 0.35em; }
+.italic { font-style: italic; }
+
+/* Scrollbar hidden on snap container */
+.snap-container::-webkit-scrollbar { display: none; }
+.snap-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Safe area ── */
+.safe-top { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
