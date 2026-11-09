@@ -100,17 +100,25 @@ export default function Details() {
           }}>
             {invite.event.date.toUpperCase()}
           </h2>
+          {invite.event.timeDisplay && invite.event.timeDisplay !== invite.event.muhurtham && (
+            <p style={{
+              fontFamily:"Cinzel, serif", fontSize:"clamp(1.1rem,4.5vw,1.5rem)", fontWeight:400,
+              color:"#B8862F", letterSpacing:"0.08em", marginTop:"0.3rem",
+            }}>
+              {invite.event.timeDisplay}
+            </p>
+          )}
           <p style={{
-            fontFamily:"Cinzel, serif", fontSize:"clamp(1.1rem,4.5vw,1.5rem)", fontWeight:400,
-            color:"#B8862F", letterSpacing:"0.08em", marginTop:"0.3rem",
+            fontFamily:"Raleway, sans-serif", fontSize:"0.6rem", fontWeight:600,
+            letterSpacing:"0.25em", textTransform:"uppercase", color:"#7A6450", marginTop:"0.6rem",
           }}>
-            {invite.event.timeDisplay}
+            Muhurtham
           </p>
           <p style={{
-            fontFamily:"Raleway, sans-serif", fontSize:"0.6rem", fontWeight:500,
-            letterSpacing:"0.25em", textTransform:"uppercase", color:"#7A6450", marginTop:"0.5rem",
+            fontFamily:"Cinzel, serif", fontSize:"clamp(1.1rem,4.5vw,1.5rem)", fontWeight:400,
+            color:"#B8862F", letterSpacing:"0.08em", marginTop:"0.2rem",
           }}>
-            Muhurtham · {invite.event.muhurtham}
+            {invite.event.muhurtham || invite.event.timeDisplay}
           </p>
         </motion.div>
 

@@ -6,8 +6,8 @@ const fadeUp = {
   show: { opacity:1, y:0, transition:{ duration:0.7, ease:[0.22,1,0.36,1] as const } }
 };
 
-function FamilyCard({ title, name, relation, parents, address }: {
-  title: string; name: string; relation: string; parents: string; address: string;
+function FamilyCard({ title, name, relation, address }: {
+  title: string; name: string; relation: string; address?: string;
 }) {
   return (
     <div style={{
@@ -22,13 +22,17 @@ function FamilyCard({ title, name, relation, parents, address }: {
       <h3 style={{ fontFamily:"Cinzel, serif", fontSize:"1.1rem", fontWeight:600, color:"#4A3524", letterSpacing:"0.06em" }}>
         {name}
       </h3>
-      <p style={{ fontFamily:"Cormorant Garamond, serif", fontStyle:"italic", fontSize:"0.85rem", color:"#7A6450", marginTop:"0.4rem" }}>
+      <p style={{ fontFamily:"Cormorant Garamond, serif", fontStyle:"italic", fontSize:"0.95rem", color:"#7A6450", marginTop:"0.4rem" }}>
         {relation}
       </p>
-      <div style={{ width:"30px", height:"1px", background:"linear-gradient(90deg,transparent,#B8862F,transparent)", margin:"0.7rem auto" }}/>
-      <p style={{ fontFamily:"Raleway, sans-serif", fontSize:"0.6rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#7A6450", lineHeight:1.8 }}>
-        {parents}{address ? <><br/>{address}</> : null}
-      </p>
+      {address ? (
+        <>
+          <div style={{ width:"30px", height:"1px", background:"linear-gradient(90deg,transparent,#B8862F,transparent)", margin:"0.7rem auto" }}/>
+          <p style={{ fontFamily:"Raleway, sans-serif", fontSize:"0.6rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"#7A6450", lineHeight:1.8 }}>
+            {address}
+          </p>
+        </>
+      ) : null}
     </div>
   );
 }
@@ -74,8 +78,7 @@ export default function Families() {
           <FamilyCard
             title="Groom"
             name={invite.groom.fullName}
-            relation={invite.groom.sonOf}
-            parents={`${invite.groom.father} & ${invite.groom.mother}`}
+            relation={invite.groom.sonOf || (invite.groom.father && invite.groom.mother ? `S/O ${invite.groom.father} & ${invite.groom.mother}` : "")}
             address={invite.groom.address}
           />
         </motion.div>
@@ -90,8 +93,7 @@ export default function Families() {
           <FamilyCard
             title="Bride"
             name={invite.bride.fullName}
-            relation={invite.bride.daughterOf}
-            parents={`${invite.bride.father} & ${invite.bride.mother}`}
+            relation={invite.bride.daughterOf || (invite.bride.father && invite.bride.mother ? `D/O ${invite.bride.father} & ${invite.bride.mother}` : "")}
             address={invite.bride.address}
           />
         </motion.div>
