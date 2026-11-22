@@ -66,21 +66,6 @@ export default function SaveTheDate() {
             {invite.event.dateShort}
           </p>
 
-          <div
-            id="add-to-calendar-btn"
-            style={{
-              marginTop:"1.5rem",
-              fontFamily:"Raleway, sans-serif", fontSize:"0.65rem", fontWeight:600,
-              letterSpacing:"0.2em", textTransform:"uppercase",
-              background:"linear-gradient(135deg, #D9A441, #B8862F)",
-              color:"white", border:"none", borderRadius:"999px",
-              padding:"0.75rem 1.8rem",
-              boxShadow:"0 4px 20px rgba(184,134,47,0.4)",
-              display:"inline-block",
-            }}
-          >
-            Add to Calendar
-          </div>
         </motion.div>
 
         {/* Footer */}
