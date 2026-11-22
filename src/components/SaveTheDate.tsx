@@ -130,17 +130,11 @@ export default function SaveTheDate() {
           textAlign:"center",
         }}>
           <p style={{
-            fontFamily:"Cinzel, serif", fontSize:"0.75rem", fontWeight:500,
-            letterSpacing:"0.18em", textTransform:"uppercase", color:"rgba(251,246,236,0.7)",
+            fontFamily:"Cormorant Garamond, serif", fontStyle:"italic",
+            fontSize:"1.05rem", fontWeight:400,
+            letterSpacing:"0.04em", color:"rgba(251,246,236,0.85)",
           }}>
-            {invite.groom.fullName} &amp; {invite.bride.fullName} · Our Wedding
-          </p>
-          <p style={{
-            fontFamily:"Raleway, sans-serif", fontSize:"0.5rem",
-            letterSpacing:"0.2em", textTransform:"uppercase",
-            color:"rgba(251,246,236,0.4)", marginTop:"0.5rem",
-          }}>
-            {invite.meta.credit}
+            Your presence is the greatest gift.
           </p>
         </motion.div>
       </motion.div>
