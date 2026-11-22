@@ -6,37 +6,6 @@ const fadeUp = {
   show: { opacity:1, y:0, transition:{ duration:0.7, ease:[0.22,1,0.36,1] as const } }
 };
 
-function generateICS() {
-  const dtStart = invite.event.isoStart.replace(/[-:]/g,"").replace("+05:30","");
-  const dtEnd   = invite.event.isoEnd.replace(/[-:]/g,"").replace("+05:30","");
-  const ics = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    `PRODID:-//${invite.groom.firstName}&${invite.bride.firstName} Wedding//EN`,
-    "BEGIN:VEVENT",
-    `DTSTART;TZID=Asia/Kolkata:${dtStart}`,
-    `DTEND;TZID=Asia/Kolkata:${dtEnd}`,
-    `SUMMARY:${invite.groom.fullName} weds ${invite.bride.fullName}`,
-    `LOCATION:${invite.venue.name}, ${invite.venue.address}`,
-    `DESCRIPTION:${invite.copy.inviteLine}`,
-    "BEGIN:VALARM",
-    "TRIGGER:-PT1D",
-    "ACTION:DISPLAY",
-    "DESCRIPTION:Wedding tomorrow!",
-    "END:VALARM",
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n");
-
-  const blob = new Blob([ics], { type:"text/calendar;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${invite.groom.firstName.toLowerCase()}-${invite.bride.firstName.toLowerCase()}-wedding.ics`;
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
 export default function SaveTheDate() {
   return (
     <section style={{
@@ -97,30 +66,21 @@ export default function SaveTheDate() {
             {invite.event.dateShort}
           </p>
 
-          <button
+          <div
             id="add-to-calendar-btn"
-            onClick={generateICS}
             style={{
               marginTop:"1.5rem",
               fontFamily:"Raleway, sans-serif", fontSize:"0.65rem", fontWeight:600,
               letterSpacing:"0.2em", textTransform:"uppercase",
               background:"linear-gradient(135deg, #D9A441, #B8862F)",
               color:"white", border:"none", borderRadius:"999px",
-              padding:"0.75rem 1.8rem", cursor:"pointer",
+              padding:"0.75rem 1.8rem",
               boxShadow:"0 4px 20px rgba(184,134,47,0.4)",
-              transition:"transform 0.15s, box-shadow 0.15s",
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.transform="scale(1.04)";
-              (e.currentTarget as HTMLElement).style.boxShadow="0 6px 28px rgba(184,134,47,0.5)";
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.transform="scale(1)";
-              (e.currentTarget as HTMLElement).style.boxShadow="0 4px 20px rgba(184,134,47,0.4)";
+              display:"inline-block",
             }}
           >
             Add to Calendar
-          </button>
+          </div>
         </motion.div>
 
         {/* Footer */}
