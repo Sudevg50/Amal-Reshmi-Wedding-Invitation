@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { invite } from "../config/invite";
+import { audioManager } from "../utils/audio";
 
 interface Props {
   isOpen: boolean;
@@ -10,13 +11,7 @@ interface Props {
 export default function EnvelopeIntro({ isOpen, onOpen }: Props) {
   const handleTap = useCallback(() => {
     if (isOpen) return;
-    try {
-      const audio = new Audio(invite.assets.music);
-      audio.loop = true;
-      audio.volume = 0.4;
-      audio.play().catch(() => {});
-      (window as any).__weddingAudio = audio;
-    } catch (_) {}
+    audioManager.play();
     onOpen();
   }, [isOpen, onOpen]);
 
